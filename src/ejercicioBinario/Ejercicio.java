@@ -30,8 +30,7 @@ public class Ejercicio {
 		escribirFichero(lista);
 		escribirBinario(lista);
 		ArrayList<A> prueba = leerFichero("archivo.txt");
-		leerFicheroBinario("datos.dat");
-		System.out.println();
+		ArrayList<A> pruebaBinaria = leerBinario("datos.dat");
 	}
 
 	private ArrayList<A> leerFichero(String filePath) {
@@ -87,7 +86,6 @@ public class Ejercicio {
 		return new A(b, c, nombre);
 	}
 	
-	
 	private void escribirFichero(ArrayList<A> lista) throws IOException {
 		File file = new File("archivo.txt");
 		file.delete();
@@ -138,9 +136,11 @@ public class Ejercicio {
 		DataOutputStream salida = new DataOutputStream(fos);
 		for(A a: lista) {
 			salida.writeUTF(a.getNombre());
+			salida.writeInt(a.getB().size());
 			for(Integer b:a.b) {
 				salida.writeInt(b);
 			}
+			salida.writeInt(a.getC().size());
 			for(Integer c:a.c) {
 				salida.writeInt(c);
 			}
@@ -149,8 +149,39 @@ public class Ejercicio {
 		fos.close();
 	}
 	
-	private ArrayList<A> leerFicheroBinario(String filePath){
-		return lista;
-		
-	} 
+	private static ArrayList<A> leerBinario(String nombreArchivo) throws IOException {
+        ArrayList<A> lista = new ArrayList<>();
+        FileInputStream fis = new FileInputStream(nombreArchivo);
+        DataInputStream entrada = new DataInputStream(fis);
+
+        try {
+            while (entrada.available() > 0) {
+                String nombre = entrada.readUTF();
+                ArrayList<Integer> b = new ArrayList<>();
+                ArrayList<Integer> c = new ArrayList();
+                int manb = entrada.readInt();
+                for (int x = 0; x < manb; x++) {
+                    int numero = entrada.readInt(); // Leer el entero y almacenarlo en una variable
+                    System.out.println(numero); // Imprimir el entero
+                }
+                System.out.println("fin b");
+                int manc = entrada.readInt();
+                for (int x = 0; x < manc; x++) {
+                    int numero = entrada.readInt(); // Leer el entero y almacenarlo en una variable
+                    System.out.println(numero); // Imprimir el entero
+                }
+                System.out.println("fin c");                
+                A a = new A(b, c,nombre);
+                lista.add(a);
+            }
+        } catch (IOException e) {
+            // Manejar excepciones de lectura de datos
+            e.printStackTrace();
+        } finally {
+            entrada.close();
+            fis.close();
+        }
+        return lista;
+    }
 }
+
