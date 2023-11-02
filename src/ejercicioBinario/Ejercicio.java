@@ -31,6 +31,37 @@ public class Ejercicio {
 		escribirBinario(lista);
 		ArrayList<A> prueba = leerFichero("archivo.txt");
 		ArrayList<A> pruebaBinaria = leerBinario("datos.dat");
+		System.out.println("LECTURA NORMAL");
+		for(A a: prueba) {
+			System.out.println("nombre: "+a.getNombre());
+			String numerosB = "";
+			for(Integer b: a.getB()) {
+				numerosB += b +" ";
+			}
+			System.out.println("numeros B: " + numerosB);
+			String numerosC = "";
+			
+			for(Integer c: a.getC()) {
+				numerosC += c +" ";
+			}
+			System.out.println("numeros C: " + numerosC);
+		}
+		System.out.println("LECTURA BINARIA");
+		for(A a: pruebaBinaria) {
+			System.out.println("nombre:"+a.getNombre());
+			System.out.println("nombre: "+a.getNombre());
+			String numerosB = "";
+			for(Integer b: a.getB()) {
+				numerosB += b +" ";
+			}
+			System.out.println("numeros B: " + numerosB);
+			String numerosC = "";
+			
+			for(Integer c: a.getC()) {
+				numerosC += c +" ";
+			}
+			System.out.println("numeros C: " + numerosC);
+		}
 	}
 
 	private ArrayList<A> leerFichero(String filePath) {
@@ -162,13 +193,13 @@ public class Ejercicio {
                 int manb = entrada.readInt();
                 for (int x = 0; x < manb; x++) {
                     int numero = entrada.readInt(); // Leer el entero y almacenarlo en una variable
-                    System.out.println(numero); // Imprimir el entero
+                    b.add(numero);
                 }
                 System.out.println("fin b");
                 int manc = entrada.readInt();
                 for (int x = 0; x < manc; x++) {
                     int numero = entrada.readInt(); // Leer el entero y almacenarlo en una variable
-                    System.out.println(numero); // Imprimir el entero
+                    c.add(numero);
                 }
                 System.out.println("fin c");                
                 A a = new A(b, c,nombre);
